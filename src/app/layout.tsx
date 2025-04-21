@@ -17,7 +17,7 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "FitGenius",
-  description: "",
+  description: "Brains meet body goals",
 };
 
 export default function RootLayout({
