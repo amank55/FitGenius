@@ -4,7 +4,7 @@ import React from 'react'
 const HomePage = () => {
   return (
   <div>
-    <SignInButton/>
+ <SignInButton />
   </div>
   )
 }
