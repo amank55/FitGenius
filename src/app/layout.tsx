@@ -57,12 +57,15 @@ export default function RootLayout({
                     <span className="text-xs text-muted-foreground font-normal ml-1">.ai</span>
                   </Link>
                   {/* Navigation */}
-                  <nav className="flex items-center gap-2 md:gap-4">
-                    <Link href="/" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Home</Link>
-                    <Link href="/generate-program" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Generate Program</Link>
-                    <Link href="/profile" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Profile</Link>
-                    <Link href="/plans" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 hidden md:inline">Plans</Link>
-                  </nav>
+                  <SignedIn>
+                    <nav className="flex items-center gap-2 md:gap-4">
+                      <Link href="/" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Home</Link>
+                      <Link href="/generate-program" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Generate Program</Link>
+                      <Link href="/profile" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Profile</Link>
+                      <Link href="/plans" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 hidden md:inline">Plans</Link>
+                      <UserButton afterSignOutUrl="/" />
+                    </nav>
+                  </SignedIn>
                 </div>
               </header>
               <main className="flex-grow">{children}</main>
