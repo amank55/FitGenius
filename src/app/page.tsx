@@ -14,7 +14,7 @@ const HomePage = () => {
   const { user } = useUser();
   const userId = user?.id as string;
   const createUserFromClerk = useMutation(api.users.createUserFromClerk);
-  const allPlans = useQuery(api.plans.getUserPlans, { userId });
+  
 
   const [formData, setFormData] = useState({
     name: "",
@@ -28,16 +28,7 @@ const HomePage = () => {
     medicalConditions: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData);
-  };
+ 
 
   // Create user in database if they don't exist
   useEffect(() => {
