@@ -1,11 +1,62 @@
-import TerminalOverlay from "@/components/TerminalOverlay";
+"use client";
+
+import { useUser } from "@clerk/nextjs";
+import { useQuery, useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { ZapIcon, DumbbellIcon, AppleIcon, TargetIcon } from "lucide-react";
+import TerminalOverlay from "@/components/TerminalOverlay";
 import UserPrograms from "@/components/UserProgram";
-//import UserPrograms from "@/components/UserPrograms";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 const HomePage = () => {
+  const { user } = useUser();
+  const userId = user?.id as string;
+  const createUserFromClerk = useMutation(api.users.createUserFromClerk);
+  const allPlans = useQuery(api.plans.getUserPlans, { userId });
+
+  const [formData, setFormData] = useState({
+    name: "",
+    age: "",
+    gender: "",
+    weight: "",
+    height: "",
+    fitnessGoal: "",
+    activityLevel: "",
+    dietaryPreferences: "",
+    medicalConditions: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    // Here you would typically send the form data to your backend
+    console.log("Form submitted:", formData);
+  };
+
+  // Create user in database if they don't exist
+  useEffect(() => {
+    const createUser = async () => {
+      if (userId) {
+        try {
+          console.log("Creating user in database for Clerk ID:", userId);
+          const result = await createUserFromClerk({ clerkId: userId });
+          console.log("User creation result:", result);
+        } catch (error) {
+          console.error("Error creating user:", error);
+        }
+      }
+    };
+
+    createUser();
+  }, [userId, createUserFromClerk]);
+
   return (
     <div className="flex flex-col min-h-screen text-foreground overflow-hidden">
       <section className="relative z-10 py-24 flex-grow">
@@ -117,8 +168,8 @@ const HomePage = () => {
         </div>
       </section>
       <UserPrograms />
-   
     </div>
   );
 };
+
 export default HomePage;

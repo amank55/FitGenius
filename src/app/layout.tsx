@@ -1,26 +1,16 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import ConvexClerkProvider from "@/provider/ConvexClerkProvider";
-import Navbar from "@/components/Navbar";
-import footer from "@/components/Footer";
 import Footer from "@/components/Footer";
+import Link from "next/link";
+import { UserButton } from "@clerk/nextjs";
 
-console.log("CLERK KEY EXISTS:", !!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "FitGenius",
-  description: "Brains meet body goals",
+  title: "FitGenius - AI-Powered Fitness Assistant",
+  description: "Your personal AI-powered fitness assistant that creates customized workout and diet plans tailored to your goals, preferences, and lifestyle.",
 };
 
 export default function RootLayout({
@@ -29,21 +19,33 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ConvexClerkProvider>
-      <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Navbar />
-
-          {/* GRID BACKGROUND */}
-          <div className="fixed inset-0 -z-1">
-            <div className="absolute inset-0 bg-gradient-to-b from-background via-background to-background"></div>
-            <div className="absolute inset-0 bg-[linear-gradient(var(--cyber-grid-color)_1px,transparent_1px),linear-gradient(90deg,var(--cyber-grid-color)_1px,transparent_1px)] bg-[size:20px_20px]"></div>
+    <html lang="en">
+      <body className={inter.className}>
+        <ConvexClerkProvider>
+          <div className="flex flex-col min-h-screen">
+            {/* HEADER */}
+            <header className="w-full border-b border-border bg-background/80 backdrop-blur-sm sticky top-0 z-50">
+              <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+                {/* Logo/Title */}
+                <Link href="/" className="flex items-center gap-2 font-mono text-xl font-bold tracking-tight text-primary hover:text-cyan-400 transition">
+                  <span className="">FitGenius</span>
+                  <span className="text-xs text-muted-foreground font-normal ml-1">.ai</span>
+                </Link>
+                {/* Navigation */}
+                <nav className="flex items-center gap-2 md:gap-4">
+                  <Link href="/" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Home</Link>
+                  <Link href="/generate-program" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Generate Program</Link>
+                  <Link href="/profile" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400">Profile</Link>
+                  <Link href="/plans" className="px-6 py-2 rounded-full border-2 border-primary text-primary font-mono text-sm shadow-cyber hover:bg-primary hover:text-background hover:shadow-cyber-glow transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400 hidden md:inline">Plans</Link>
+                  <UserButton afterSignOutUrl="/" />
+                </nav>
+              </div>
+            </header>
+            <main className="flex-grow">{children}</main>
+            <Footer />
           </div>
-
-          <main className="pt-24 flex-grow">{children}</main>
-         <Footer/>
-        </body>
-      </html>
-    </ConvexClerkProvider>
+        </ConvexClerkProvider>
+      </body>
+    </html>
   );
 }

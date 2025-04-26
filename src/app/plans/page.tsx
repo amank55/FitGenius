@@ -1,94 +1,32 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { useQuery, useMutation } from "convex/react";
+import { useQuery } from "convex/react";
 import { api } from "../../../convex/_generated/api";
-import { useState, useEffect } from "react";
-import ProfileHeader from "@/components/ProfileHeader";
-import NoFitnessPlan from "@/components/NoFitnessPlan";
-import CornerElements from "@/components/CornerElements";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { AppleIcon, CalendarIcon, DumbbellIcon } from "lucide-react";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { DumbbellIcon, AppleIcon, CalendarIcon } from "lucide-react";
 
-const ProfilePage = () => {
+const PlansPage = () => {
   const { user } = useUser();
   const userId = user?.id as string;
-  const createUserFromClerk = useMutation(api.users.createUserFromClerk);
-
-  // Simple debugging
-  useEffect(() => {
-    console.log("User ID:", userId);
-  }, [userId]);
-
-  // Create user in database if they don't exist
-  useEffect(() => {
-    const createUser = async () => {
-      if (userId) {
-        try {
-          console.log("Creating user in database for Clerk ID:", userId);
-          const result = await createUserFromClerk({ clerkId: userId });
-          console.log("User creation result:", result);
-        } catch (error) {
-          console.error("Error creating user:", error);
-        }
-      }
-    };
-
-    createUser();
-  }, [userId, createUserFromClerk]);
-
   const allPlans = useQuery(api.plans.getUserPlans, { userId });
-
-  // Simple debugging
-  useEffect(() => {
-    console.log("All Plans:", allPlans);
-  }, [allPlans]);
-
   const [selectedPlanId, setSelectedPlanId] = useState<null | string>(null);
 
   const activePlan = allPlans?.find((plan) => plan.isActive);
-
   const currentPlan = selectedPlanId
     ? allPlans?.find((plan) => plan._id === selectedPlanId)
     : activePlan;
 
   return (
-    <section className="relative z-10 pt-12 pb-32 flex-grow container mx-auto px-4">
-      <ProfileHeader user={user} />
-
-      {/* Debug Section */}
-      <div className="mb-8 p-4 border border-border rounded-lg bg-background/50">
-        <h3 className="text-lg font-bold mb-2">Debug Information</h3>
-        <div className="space-y-2">
-          <div>
-            <span className="font-mono text-xs text-muted-foreground">User ID:</span>
-            <div className="font-mono text-sm">{userId || "Not available"}</div>
-          </div>
-          <div>
-            <span className="font-mono text-xs text-muted-foreground">Plans Status:</span>
-            <div className="font-mono text-sm">
-              {allPlans === undefined
-                ? "Loading..."
-                : allPlans === null
-                ? "Error loading plans"
-                : `Found ${allPlans.length} plans`}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {allPlans && allPlans?.length > 0 ? (
+    <div className="container mx-auto px-4 py-12">
+      <h1 className="text-4xl font-bold mb-8">Fitness Plans</h1>
+      
+      {allPlans && allPlans.length > 0 ? (
         <div className="space-y-8">
-          {/* PLAN SELECTOR */}
-          <div className="relative backdrop-blur-sm border border-border p-6">
-            <CornerElements />
+          {/* Plan Selector */}
+          <div className="bg-background/50 backdrop-blur-sm border border-border p-6 rounded-lg">
             <div className="flex items-center justify-between mb-4">
               <h2 className="text-xl font-bold tracking-tight">
                 <span className="text-primary">Your</span>{" "}
@@ -121,11 +59,9 @@ const ProfilePage = () => {
             </div>
           </div>
 
-          {/* PLAN DETAILS */}
+          {/* Plan Details */}
           {currentPlan && (
-            <div className="relative backdrop-blur-sm border border-border rounded-lg p-6">
-              <CornerElements />
-
+            <div className="bg-background/50 backdrop-blur-sm border border-border rounded-lg p-6">
               <div className="flex items-center gap-2 mb-4">
                 <div className="w-2 h-2 rounded-full bg-primary animate-pulse"></div>
                 <h3 className="text-lg font-bold">
@@ -161,54 +97,38 @@ const ProfilePage = () => {
                       </span>
                     </div>
 
-                    <Accordion type="multiple" className="space-y-4">
+                    <div className="space-y-4">
                       {currentPlan.workoutPlan.exercises.map((exerciseDay, index) => (
-                        <AccordionItem
-                          key={index}
-                          value={exerciseDay.day}
-                          className="border rounded-lg overflow-hidden"
-                        >
-                          <AccordionTrigger className="px-4 py-3 hover:no-underline hover:bg-primary/10 font-mono">
-                            <div className="flex justify-between w-full items-center">
-                              <span className="text-primary">{exerciseDay.day}</span>
-                              <div className="text-xs text-muted-foreground">
-                                {exerciseDay.routines.length} EXERCISES
-                              </div>
-                            </div>
-                          </AccordionTrigger>
-
-                          <AccordionContent className="pb-4 px-4">
-                            <div className="space-y-3 mt-2">
-                              {exerciseDay.routines.map((routine, routineIndex) => (
-                                <div
-                                  key={routineIndex}
-                                  className="border border-border rounded p-3 bg-background/50"
-                                >
-                                  <div className="flex justify-between items-start mb-2">
-                                    <h4 className="font-semibold text-foreground">
-                                      {routine.name}
-                                    </h4>
-                                    <div className="flex items-center gap-2">
-                                      <div className="px-2 py-1 rounded bg-primary/20 text-primary text-xs font-mono">
-                                        {routine.sets} SETS
-                                      </div>
-                                      <div className="px-2 py-1 rounded bg-secondary/20 text-secondary text-xs font-mono">
-                                        {routine.reps} REPS
-                                      </div>
+                        <div key={index} className="border rounded-lg p-4">
+                          <h4 className="font-bold text-primary mb-2">{exerciseDay.day}</h4>
+                          <div className="space-y-3">
+                            {exerciseDay.routines.map((routine, routineIndex) => (
+                              <div
+                                key={routineIndex}
+                                className="border border-border rounded p-3 bg-background/50"
+                              >
+                                <div className="flex justify-between items-start mb-2">
+                                  <h5 className="font-semibold">{routine.name}</h5>
+                                  <div className="flex items-center gap-2">
+                                    <div className="px-2 py-1 rounded bg-primary/20 text-primary text-xs font-mono">
+                                      {routine.sets} SETS
+                                    </div>
+                                    <div className="px-2 py-1 rounded bg-secondary/20 text-secondary text-xs font-mono">
+                                      {routine.reps} REPS
                                     </div>
                                   </div>
-                                  {routine.description && (
-                                    <p className="text-sm text-muted-foreground mt-1">
-                                      {routine.description}
-                                    </p>
-                                  )}
                                 </div>
-                              ))}
-                            </div>
-                          </AccordionContent>
-                        </AccordionItem>
+                                {routine.description && (
+                                  <p className="text-sm text-muted-foreground mt-1">
+                                    {routine.description}
+                                  </p>
+                                )}
+                              </div>
+                            ))}
+                          </div>
+                        </div>
                       ))}
-                    </Accordion>
+                    </div>
                   </div>
                 </TabsContent>
 
@@ -258,10 +178,16 @@ const ProfilePage = () => {
           )}
         </div>
       ) : (
-        <NoFitnessPlan />
+        <div className="text-center py-12">
+          <h2 className="text-2xl font-bold mb-4">No Fitness Plans Yet</h2>
+          <p className="text-muted-foreground mb-6">
+            Create your first fitness plan to get started on your journey to better health.
+          </p>
+          <Button>Create New Plan</Button>
+        </div>
       )}
-    </section>
+    </div>
   );
 };
 
-export default ProfilePage;
+export default PlansPage; 

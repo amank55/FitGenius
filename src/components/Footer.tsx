@@ -1,77 +1,93 @@
-import { ZapIcon } from "lucide-react";
 import Link from "next/link";
+import { Facebook, Instagram, Twitter, Youtube } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border bg-background/80 backdrop-blur-sm">
-      {/* Top border glow */}
-      <div className="h-px w-full bg-gradient-to-r from-transparent via-primary/30 to-transparent"></div>
-
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-          {/* Logo and Copyright */}
-          <div className="flex flex-col items-center md:items-start gap-2">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="p-1 bg-primary/10 rounded">
-                <ZapIcon className="w-4 h-4 text-primary" />
-              </div>
-              <span className="text-xl font-bold font-mono">
-                Fit<span className="text-primary">Genius</span>.ai
-              </span>
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} codeflex.ai - All rights reserved
+    <footer className="relative bg-gradient-to-t from-background/90 to-cyber-black/80 border-t-4 border-cyan-400 shadow-cyber-glow">
+      {/* Neon accent bar */}
+      <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 via-primary to-cyan-400 blur-sm opacity-80 animate-pulse" />
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          {/* About Section */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 text-cyan-400">About FitGenius</h3>
+            <p className="text-sm text-muted-foreground mb-6">
+              FitGenius is your personal AI-powered fitness assistant that creates customized workout and diet plans tailored to your goals, preferences, and lifestyle.
             </p>
+            <div className="flex space-x-4 mt-4">
+              <Link href="https://facebook.com" target="_blank" className="text-muted-foreground hover:text-cyan-400 transition drop-shadow-cyber-glow">
+                <Facebook size={24} className="hover:scale-110 transition-transform" />
+              </Link>
+              <Link href="https://instagram.com" target="_blank" className="text-muted-foreground hover:text-pink-400 transition drop-shadow-cyber-glow">
+                <Instagram size={24} className="hover:scale-110 transition-transform" />
+              </Link>
+              <Link href="https://twitter.com" target="_blank" className="text-muted-foreground hover:text-blue-400 transition drop-shadow-cyber-glow">
+                <Twitter size={24} className="hover:scale-110 transition-transform" />
+              </Link>
+              <Link href="https://youtube.com" target="_blank" className="text-muted-foreground hover:text-red-500 transition drop-shadow-cyber-glow">
+                <Youtube size={24} className="hover:scale-110 transition-transform" />
+              </Link>
+            </div>
           </div>
 
-          {/* Links */}
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-2 text-sm">
-            <Link
-              href="/about"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              About
-            </Link>
-            <Link
-              href="/terms"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Terms
-            </Link>
-            <Link
-              href="/privacy"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/contact"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Contact
-            </Link>
-            <Link
-              href="/blog"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Blog
-            </Link>
-            <Link
-              href="/help"
-              className="text-muted-foreground hover:text-primary transition-colors"
-            >
-              Help
-            </Link>
+          {/* Quick Links */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 text-cyan-400">Quick Links</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/profile" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  My Profile
+                </Link>
+              </li>
+              <li>
+                <Link href="/plans" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  Fitness Plans
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  Blog
+                </Link>
+              </li>
+            </ul>
           </div>
 
-          {/* Status */}
-          <div className="flex items-center gap-2 px-3 py-2 border border-border rounded-md bg-background/50">
-            <div className="w-2 h-2 rounded-full bg-green-500"></div>
-            <span className="text-xs font-mono">SYSTEM OPERATIONAL</span>
+          {/* Blog Section */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 text-cyan-400">Latest from Blog</h3>
+            <ul className="space-y-3">
+              <li>
+                <Link href="/blog/5-tips-for-better-workouts" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  5 Tips for Better Workouts
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/nutrition-basics" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  Nutrition Basics for Beginners
+                </Link>
+              </li>
+              <li>
+                <Link href="/blog/recovery-strategies" className="text-sm text-muted-foreground hover:text-cyan-400 transition font-mono">
+                  Recovery Strategies for Athletes
+                </Link>
+              </li>
+            </ul>
           </div>
+        </div>
+
+        <div className="border-t border-cyan-900 mt-12 pt-8 text-center">
+          <p className="text-sm text-cyan-400 font-mono tracking-wider">
+            © {new Date().getFullYear()} FitGenius. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>
   );
 };
+
 export default Footer;
