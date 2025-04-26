@@ -3,7 +3,7 @@
 import { useUser } from "@clerk/nextjs";
 import {  useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import TerminalOverlay from "@/components/TerminalOverlay";
 import UserPrograms from "@/components/UserProgram";
