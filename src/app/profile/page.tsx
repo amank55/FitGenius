@@ -44,7 +44,7 @@ const ProfilePage = () => {
     createUser();
   }, [userId, createUserFromClerk]);
 
-  const allPlans = useQuery(api.plans.getUserPlans, { userId });
+  const allPlans = useQuery(api.plans.getUserPlans, userId ? { userId } : "skip");
 
   // Simple debugging
   useEffect(() => {
