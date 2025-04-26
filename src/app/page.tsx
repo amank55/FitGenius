@@ -5,7 +5,6 @@ import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { ZapIcon, DumbbellIcon, AppleIcon, TargetIcon } from "lucide-react";
 import TerminalOverlay from "@/components/TerminalOverlay";
 import UserPrograms from "@/components/UserProgram";
 import { ArrowRightIcon } from "lucide-react";

@@ -3,7 +3,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Send, Bot, User, Loader2 } from "lucide-react";
 import { Button } from "./ui/button";
-import { useUser } from "@clerk/nextjs";
 
 type Message = {
   role: "user" | "assistant";
@@ -11,7 +10,6 @@ type Message = {
 };
 
 const AIChat = () => {
-  const { user } = useUser();
   const [messages, setMessages] = useState<Message[]>([
     {
       role: "assistant",
