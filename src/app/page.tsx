@@ -1,7 +1,7 @@
 "use client";
 
 import { useUser } from "@clerk/nextjs";
-import { useQuery, useMutation } from "convex/react";
+import {  useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -14,19 +14,7 @@ const HomePage = () => {
   const { user } = useUser();
   const userId = user?.id as string;
   const createUserFromClerk = useMutation(api.users.createUserFromClerk);
-  
 
-  const [formData, setFormData] = useState({
-    name: "",
-    age: "",
-    gender: "",
-    weight: "",
-    height: "",
-    fitnessGoal: "",
-    activityLevel: "",
-    dietaryPreferences: "",
-    medicalConditions: "",
-  });
 
  
 
