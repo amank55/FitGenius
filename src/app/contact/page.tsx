@@ -54,7 +54,7 @@ const ContactPage = () => {
             <div>
               <h2 className="text-2xl font-bold mb-6">Get in Touch</h2>
               <p className="text-muted-foreground mb-8">
-                Have questions about FitGenius? We're here to help! Reach out to us using the contact information below or fill out the form.
+                Have questions about FitGenius? We&apos;re here to help! Reach out to us using the contact information below or fill out the form.
               </p>
               
               <div className="space-y-6">

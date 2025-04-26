@@ -57,7 +57,7 @@ const AboutPage = () => {
             
             <h2 className="text-2xl font-bold mt-8 mb-4">Join the FitGenius Community</h2>
             <p className="mb-6">
-              Whether you're just starting your fitness journey or you're looking to take your training to the next level, FitGenius is here to help. Join our community of fitness enthusiasts and start your journey to a healthier, stronger you today.
+              Whether you&apos;re just starting your fitness journey or you&apos;re looking to take your training to the next level, FitGenius is here to help. Join our community of fitness enthusiasts and start your journey to a healthier, stronger you today.
             </p>
             
             <div className="mt-8">
