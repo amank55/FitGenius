@@ -3,7 +3,7 @@
 import { SignInButton, SignUpButton, UserButton, useUser } from "@clerk/nextjs";
 import { DumbbellIcon, HomeIcon, UserIcon, ZapIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { Button } from "./ui/button";
 
 const Navbar = () => {
   const { isSignedIn } = useUser();
@@ -17,7 +17,7 @@ const Navbar = () => {
             <ZapIcon className="w-4 h-4 text-primary" />
           </div>
           <span className="text-xl font-bold font-mono">
-            Fit<span className="text-primary">Genius</span>.ai
+            code<span className="text-primary">flex</span>.ai
           </span>
         </Link>
 
