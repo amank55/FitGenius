@@ -1,10 +1,8 @@
 import "./globals.css";
-import { ClerkProvider, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Inter } from "next/font/google";
 import type { Metadata } from "next";
 import ConvexClerkProvider from "@/provider/ConvexClerkProvider";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import Navbar from "@/components/Navbar";
 const inter = Inter({ subsets: ["latin"] });
 
